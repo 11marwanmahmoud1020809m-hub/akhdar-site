@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16A34A">
+<title>أخضر AKHDAR | منشئ الاستبيانات</title>
+<style>
+:root{
+--g1:#16A34A;--g2:#22C55E;--lime:#A3E635;--teal:#0D9488;--sky:#0EA5E9;--blue:#3B82F6;
+--or:#F97316;--pink:#EC4899;--pur:#8B5CF6;--yel:#FACC15;--red:#EF4444;
+--bg:#F0FDF4;--cd:#FFFFFF;--sf:#F8FAFC;--ln:#E2E8F0;--tx:#0F172A;--tx2:#334155;--mu:#64748B;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+font-family:'Cairo','Segoe UI',Tahoma,Arial,sans-serif;color:var(--tx);font-size:14px;line-height:1.7;
+background:var(--bg);
+background-image:radial-gradient(circle at 8% 12%,rgba(34,197,94,.14),transparent 32%),radial-gradient(circle at 92% 8%,rgba(14,165,233,.12),transparent 30%),radial-gradient(circle at 85% 85%,rgba(236,72,153,.10),transparent 32%),radial-gradient(circle at 12% 90%,rgba(250,204,21,.14),transparent 30%);
+background-attachment:fixed;
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,textarea,select{font-family:inherit;color:var(--tx)}
+.hidden{display:none!important}
+.hd{background:linear-gradient(120deg,#15803D,#16A34A 35%,#0D9488 70%,#0891B2);color:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:60;box-shadow:0 6px 24px rgba(22,163,74,.35)}
+.hd .lg{width:44px;height:44px;border-radius:14px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 14px rgba(0,0,0,.2)}
+.hd b{font-size:17px;font-weight:800;letter-spacing:.3px}
+.hd b i{font-style:normal;color:#FEF08A}
+.hd small{display:block;color:#D1FAE5;font-size:10.5px;font-weight:700}
+.hd .sp{margin-right:auto}
+.tabs{display:flex;gap:8px;padding:14px 16px 0;flex-wrap:wrap;max-width:1000px;margin:0 auto}
+.tab{padding:10px 18px;border-radius:14px;background:#fff;border:2px solid var(--ln);font-weight:800;font-size:12.5px;color:var(--mu);transition:.2s;box-shadow:0 2px 8px rgba(15,23,42,.06)}
+.tab:hover{transform:translateY(-2px)}
+.tab.on[data-tab="builder"]{background:linear-gradient(120deg,#16A34A,#65A30D);color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(22,163,74,.4)}
+.tab.on[data-tab="resp"]{background:linear-gradient(120deg,#8B5CF6,#6366F1);color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(139,92,246,.4)}
+.tab.on[data-tab="share"]{background:linear-gradient(120deg,#F97316,#F59E0B);color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(249,115,22,.4)}
+.wrap{max-width:1000px;margin:0 auto;padding:14px 16px 70px}
+.cd{background:var(--cd);border:1px solid var(--ln);border-radius:20px;box-shadow:0 4px 18px rgba(15,23,42,.07);padding:18px;margin-top:14px;position:relative;overflow:hidden}
+.cd::before{content:'';position:absolute;inset-inline:0;top:0;height:5px;background:var(--acc,linear-gradient(90deg,#16A34A,#A3E635))}
+.cd.a-green{--acc:linear-gradient(90deg,#16A34A,#A3E635)}
+.cd.a-sky{--acc:linear-gradient(90deg,#0EA5E9,#38BDF8)}
+.cd.a-pink{--acc:linear-gradient(90deg,#EC4899,#F472B6)}
+.cd.a-pur{--acc:linear-gradient(90deg,#8B5CF6,#A78BFA)}
+.cd.a-or{--acc:linear-gradient(90deg,#F97316,#FBBF24)}
+.cd h3{font-size:14.5px;font-weight:800;margin-bottom:4px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.cd h3 .sp{margin-right:auto}
+.desc{color:var(--mu);font-size:11.5px;font-weight:700;margin-bottom:12px}
+.fd{display:flex;flex-direction:column;gap:6px;font-size:11.5px;font-weight:800;color:var(--tx2);margin-bottom:10px}
+.inp{border:2px solid var(--ln);border-radius:12px;padding:10px 13px;font-size:13px;background:#fff;width:100%;transition:.2s}
+.inp:focus{outline:none;border-color:var(--g2);box-shadow:0 0 0 4px rgba(34,197,94,.15)}
+textarea.inp{min-height:84px;resize:vertical}
+.bt{border-radius:12px;padding:10px 16px;font-size:12.5px;font-weight:800;display:inline-flex;align-items:center;gap:7px;transition:.18s;border:2px solid transparent}
+.bt:active{transform:scale(.96)}
+.bt.gg{background:linear-gradient(120deg,#16A34A,#65A30D);color:#fff;box-shadow:0 4px 14px rgba(22,163,74,.35)}
+.bt.gg:hover{filter:brightness(1.08)}
+.bt.oo{background:linear-gradient(120deg,#F97316,#F59E0B);color:#fff;box-shadow:0 4px 14px rgba(249,115,22,.35)}
+.bt.pp{background:linear-gradient(120deg,#8B5CF6,#6366F1);color:#fff;box-shadow:0 4px 14px rgba(139,92,246,.35)}
+.bt.pk{background:linear-gradient(120deg,#EC4899,#F472B6);color:#fff}
+.bt.ss{background:linear-gradient(120deg,#0EA5E9,#38BDF8);color:#fff}
+.bt.gh{background:#fff;border-color:var(--ln);color:var(--tx2)}
+.bt.gh:hover{background:var(--sf)}
+.bt.rd{background:linear-gradient(120deg,#EF4444,#F87171);color:#fff}
+.bt.sm{padding:7px 12px;font-size:11.5px;border-radius:10px}
+.bt.xs{padding:5px 9px;font-size:10.5px;border-radius:8px}
+.ac{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+/* ===== image manager ===== */
+.imgup{border:2.5px dashed var(--g2);border-radius:16px;background:#F0FDF4;padding:16px;text-align:center;cursor:pointer;transition:.2s;display:block}
+.imgup:hover{background:#DCFCE7;border-color:var(--g1)}
+.imgup .ic{font-size:30px}
+.imgup p{font-size:12px;font-weight:800;color:var(--g1);margin-top:4px}
+.imgup small{font-size:10.5px;color:var(--mu);font-weight:700}
+.imglist{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.imgitem{border:2px solid var(--ln);border-radius:16px;overflow:hidden;background:#fff;position:relative}
+.imgitem .th{height:110px;background:linear-gradient(160deg,#F0FDF4,#ECFDF5);display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.imgitem .th img{width:100%;height:100%;object-fit:cover}
+.imgitem .th .ph{font-size:34px}
+.imgitem .cv{position:absolute;top:6px;right:6px;background:linear-gradient(120deg,#F97316,#F59E0B);color:#fff;border-radius:10px;padding:2px 9px;font-size:9.5px;font-weight:800;box-shadow:0 3px 10px rgba(0,0,0,.25)}
+.imgitem .bd{padding:8px}
+.imgitem .bd input{border:1.5px solid var(--ln);border-radius:9px;padding:6px 9px;font-size:11px;width:100%;margin-bottom:7px}
+.imgitem .bd .ac{justify-content:center}
+/* ===== gallery (admin preview + fill) ===== */
+.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+.gi{border-radius:16px;overflow:hidden;border:2px solid var(--ln);background:linear-gradient(160deg,#F0FDF4,#ECFDF5);transition:.2s;position:relative}
+.gi:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(15,23,42,.12)}
+.gi svg,.gi img{width:100%;height:110px;display:block;object-fit:cover}
+.gi p{font-size:10.5px;font-weight:800;text-align:center;padding:7px 4px;color:var(--tx2);background:#fff}
+/* ===== question items ===== */
+.qi{border:2px solid var(--ln);border-radius:16px;padding:12px;background:var(--sf);margin-bottom:10px;border-top:5px solid var(--qc,#16A34A)}
+.qi .qt{font-weight:800;font-size:13px;display:flex;gap:9px;align-items:flex-start}
+.qi .qt .n{background:var(--qc,#16A34A);color:#fff;border-radius:9px;min-width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11.5px;flex-shrink:0}
+.qi .ops{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.chip{background:#fff;border:2px solid var(--ln);border-radius:14px;padding:2px 11px;font-size:11px;font-weight:800;color:var(--tx2)}
+.chip.req{background:#FEF2F2;border-color:#FCA5A5;color:#B91C1C}
+.qi .act{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
+/* ===== responses ===== */
+.sum{margin-bottom:16px}
+.sum .st{font-weight:800;font-size:12.5px;margin-bottom:6px;color:var(--tx2)}
+.sum .sr{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:800;margin-bottom:6px}
+.sum .sr .lb{min-width:120px;color:var(--tx2)}
+.sum .sr .bar{flex:1;height:10px;background:var(--ln);border-radius:8px;overflow:hidden;margin:0}
+.sum .sr .bar i{display:block;height:100%;border-radius:8px;background:var(--bc,linear-gradient(90deg,#16A34A,#A3E635))}
+.sum .sr .ct{min-width:30px;text-align:left;color:var(--mu)}
+.resp{border:2px solid var(--ln);border-radius:14px;padding:10px 12px;background:var(--sf);margin-bottom:9px;font-size:12px}
+.resp .rt{color:var(--mu);font-size:10.5px;font-weight:800;margin-bottom:5px}
+.note{background:#FFFBEB;border:2px dashed #FCD34D;border-radius:14px;padding:11px 13px;font-size:11.5px;font-weight:800;color:#92400E;margin-top:12px;line-height:1.9}
+.note.red{background:#FEF2F2;border-color:#FCA5A5;color:#991B1B}
+/* ===== FILL MODE ===== */
+#fillWrap{max-width:720px;margin:0 auto;padding:0 14px 80px}
+.fhero{background:linear-gradient(140deg,#15803D,#16A34A 30%,#0D9488 65%,#0891B2);border-radius:0 0 34px 34px;color:#fff;padding:30px 20px 26px;text-align:center;margin-bottom:18px;position:relative;overflow:hidden;box-shadow:0 14px 40px rgba(22,163,74,.35)}
+.fhero::before,.fhero::after{content:'';position:absolute;border-radius:50%;opacity:.18}
+.fhero::before{width:180px;height:180px;background:#FEF08A;top:-60px;right:-50px}
+.fhero::after{width:140px;height:140px;background:#F472B6;bottom:-50px;left:-40px}
+.fhero .dev{width:min(330px,86%);margin:0 auto 10px;display:block;filter:drop-shadow(0 10px 22px rgba(0,0,0,.3));position:relative;z-index:1}
+.fhero img.dev{border-radius:20px;border:3px solid rgba(255,255,255,.5);object-fit:cover;height:200px}
+.fhero h1{font-size:22px;font-weight:800;margin-bottom:6px;position:relative;z-index:1}
+.fhero h1 i{font-style:normal;color:#FEF08A}
+.fhero p{color:#D1FAE5;font-size:13px;line-height:1.9;position:relative;z-index:1}
+.fgal{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0;position:relative;z-index:1}
+.fgal .fgi{border-radius:14px;overflow:hidden;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.25);backdrop-filter:blur(4px)}
+.fgal .fgi svg,.fgal .fgi img{width:100%;height:86px;display:block;object-fit:cover}
+.fgal .fgi p{font-size:10px;font-weight:800;text-align:center;padding:5px 3px;color:#ECFDF5}
+.fprog{position:sticky;top:0;z-index:40;background:rgba(240,253,244,.92);backdrop-filter:blur(6px);padding:10px 0 8px;border-radius:0 0 12px 12px}
+.fprog .tx{font-size:11px;font-weight:800;color:var(--mu);margin-bottom:5px;display:flex;justify-content:space-between}
+.fprog .bar{height:11px;background:#E2E8F0;border-radius:8px;overflow:hidden}
+.fprog .bar i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,#16A34A,#A3E635,#FACC15);transition:width .35s}
+.fq{background:#fff;border:2px solid var(--ln);border-radius:18px;padding:16px;margin-bottom:13px;box-shadow:0 4px 14px rgba(15,23,42,.06);border-top:6px solid var(--qc,#16A34A)}
+.fq.miss{border-color:var(--red);box-shadow:0 0 0 4px rgba(239,68,68,.15)}
+.fq .qt{font-weight:800;font-size:13.5px;margin-bottom:11px;display:flex;gap:8px}
+.fq .qt .nq{background:var(--qc,#16A34A);color:#fff;border-radius:9px;min-width:25px;height:25px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+.fq .qt .rq{color:var(--red)}
+.opt{display:flex;align-items:center;gap:10px;border:2px solid var(--ln);border-radius:13px;padding:11px 13px;margin-bottom:8px;font-weight:800;font-size:12.5px;cursor:pointer;transition:.15s;background:#fff;color:var(--tx2)}
+.opt:hover{border-color:var(--qc,#16A34A);transform:translateX(-2px)}
+.opt.on{border-color:var(--qc,#16A34A);background:color-mix(in srgb,var(--qc,#16A34A) 10%,#fff);color:var(--tx)}
+.opt .mk{width:22px;height:22px;border-radius:50%;border:2.5px solid var(--ln);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;transition:.15s}
+.opt.on .mk{border-color:var(--qc,#16A34A);background:var(--qc,#16A34A)}
+.opt.sq .mk{border-radius:7px}
+.stars{display:flex;gap:8px;direction:ltr;justify-content:flex-end}
+.stars button{font-size:30px;color:#E2E8F0;transition:.15s}
+.stars button.on{color:var(--yel);text-shadow:0 2px 8px rgba(250,204,21,.5)}
+.thanks{text-align:center;padding:56px 20px;background:#fff;border-radius:26px;border:2px solid var(--ln);margin-top:16px;box-shadow:0 10px 30px rgba(15,23,42,.08)}
+.thanks .ic{font-size:64px;animation:pop .5s}
+@keyframes pop{0%{transform:scale(.4)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.thanks h2{font-size:21px;font-weight:800;margin:12px 0 6px;color:var(--g1)}
+.thanks p{color:var(--mu);font-size:13px}
+.fabout{background:#fff;border:2px solid var(--ln);border-radius:20px;padding:16px;margin-top:14px}
+.fabout h3{font-size:14px;font-weight:800;color:var(--teal);margin-bottom:8px}
+.fabout p{font-size:12.5px;color:var(--tx2);line-height:2}
+#toast{position:fixed;bottom:20px;right:50%;transform:translateX(50%);z-index:300;display:flex;flex-direction:column;gap:8px;align-items:center}
+.tst{border-radius:14px;padding:11px 20px;font-size:12.5px;font-weight:800;color:#fff;box-shadow:0 10px 26px rgba(0,0,0,.28);animation:up .3s}
+.tst.ok{background:linear-gradient(120deg,#16A34A,#65A30D)}
+.tst.err{background:linear-gradient(120deg,#EF4444,#F87171)}
+.tst.info{background:linear-gradient(120deg,#0EA5E9,#38BDF8)}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (max-width:760px){.gal,.imglist{grid-template-columns:repeat(2,1fr)}.row2{grid-template-columns:1fr}.fgal{grid-template-columns:repeat(2,1fr)}.hd b{font-size:15px}}
+@media (max-width:420px){.gal,.fgal,.imglist{grid-template-columns:1fr 1fr}.tabs{gap:6px}.tab{padding:8px 12px;font-size:11.5px}}
+</style>
+</head>
+<body>
+
+<!-- ================= ADMIN ================= -->
+<div id="adminWrap">
+<header class="hd">
+  <div class="lg">🌿</div>
+  <div><b>أخضر <i>AKHDAR</i></b><small>منشئ الاستبيانات · صوّر جهازك واسأل مزارعيك 🚜</small></div>
+  <span class="sp"></span>
+  <button class="bt gh sm" id="btnNewForm">＋ استبيان جديد</button>
+</header>
+<div class="tabs">
+  <button class="tab on" data-tab="builder">🛠 بناء الأسئلة</button>
+  <button class="tab" data-tab="resp">📊 الردود</button>
+  <button class="tab" data-tab="share">🔗 النشر والمشاركة</button>
+</div>
+<div class="wrap">
+
+  <div id="tab-builder">
+    <div class="cd a-green">
+      <h3>📋 هوية الاستبيان</h3>
+      <p class="desc">ℹ️ العنوان والرسالة الترحيبية بيظهروا للمستخدم فوق صور جهاز «أخضر».</p>
+      <label class="fd">عنوان الاستبيان<input class="inp" id="fTitle"></label>
+      <label class="fd">رسالة ترحيبية قصيرة<input class="inp" id="fWelcome"></label>
+      <label class="fd">شرح الجهاز «أخضر» (وصف تفصيلي)<textarea class="inp" id="fAbout"></textarea></label>
+    </div>
+
+    <div class="cd a-sky">
+      <h3>🖼 صور الجهاز — ضيف صور انتَ <span class="sp"></span><button class="bt gh xs" id="btnResetImgs">♻ رسومات افتراضية</button></h3>
+      <p class="desc">ℹ️ ارفع صور جهازك من موبايلك أو الكمبيوتر (بتتضغط تلقائياً)، أو الصق رابط صورة. <b>أول صورة = صورة الغلاف الكبيرة</b> والباقي بيظهر في المعرض.</p>
+      <label class="imgup" for="imgFile">
+        <span class="ic">📸</span>
+        <p>اضغط هنا لرفع صور من جهازك</p>
+        <small>JPG / PNG — تقدر تختار أكتر من صورة مرة واحدة</small>
+      </label>
+      <input type="file" id="imgFile" accept="image/*" multiple class="hidden">
+      <div class="ac" style="margin-top:10px">
+        <input class="inp" id="imgUrl" placeholder="🔗 أو الصق رابط صورة هنا (https://…)" dir="ltr" style="text-align:left">
+        <button class="bt ss sm" id="btnAddUrl">＋ إضافة بالرابط</button>
+      </div>
+      <div class="imglist" id="imgList"></div>
+      <div class="note" id="imgNote">🌿 مفيش صور مضافة لسه — المستخدم هيشف رسومات الجهاز الافتراضية المبنية جوه التطبيق. أول صورة تضيفها هتبقى الغلاف.</div>
+    </div>
+
+    <div class="cd a-pink">
+      <h3>➕ إضافة سؤال <span class="sp"></span><span class="chip hidden" id="editBadge">✏️ وضع التعديل</span></h3>
+      <p class="desc">ℹ️ اختار نوع السؤال واكتبه، ولو سؤال اختيارات اكتب الخيارات وافصلها بفاصلة (،).</p>
+      <div class="row2">
+        <label class="fd">نوع السؤال
+          <select class="inp" id="qType">
+            <option value="radio">⭕ اختيار من متعدد</option>
+            <option value="check">☑️ اختيار متعدد</option>
+            <option value="yesno">✅ نعم / لا</option>
+            <option value="text">✍️ إجابة نصية</option>
+            <option value="num">🔢 رقم</option>
+            <option value="rate">⭐ تقييم من 5</option>
+          </select>
+        </label>
+        <label class="fd" style="justify-content:flex-start"><span>خيارات السؤال</span>
+          <label class="ac" style="margin-top:8px"><input type="checkbox" id="qReq" checked style="width:18px;height:18px;accent-color:#16A34A"> <span style="font-size:12px">سؤال إجباري</span></label>
+        </label>
+      </div>
+      <label class="fd">نص السؤال<input class="inp" id="qText" placeholder="مثال: ما أكبر مشكلة تواجهك في مكافحة الآفات؟"></label>
+      <label class="fd" id="optsWrap">الخيارات (افصلها بفاصلة)<input class="inp" id="qOpts" placeholder="تكلفة المبيدات، اكتشاف متأخر، عمالة الرش"></label>
+      <div class="ac"><button class="bt gg" id="qAdd">➕ إضافة السؤال</button><button class="bt gh hidden" id="qCancelEdit">إلغاء التعديل</button></div>
+    </div>
+
+    <div class="cd a-pur">
+      <h3>📝 أسئلة الاستبيان <span class="sp"></span><span class="chip" id="qCount">0 سؤال</span></h3>
+      <div id="qList"></div>
+    </div>
+  </div>
+
+  <div id="tab-resp" class="hidden">
+    <div class="cd a-pur">
+      <h3>📊 ملخص الردود <span class="sp"></span>
+        <button class="bt ss sm" id="btnCsv">⬇ CSV</button>
+        <button class="bt rd sm" id="btnClearResp">🗑 مسح</button>
+      </h3>
+      <p class="desc">ℹ️ الردود بتتحفظ على جهازك، ولو ربطت Google Sheets هتوصلك هناك كمان.</p>
+      <div class="ac" style="margin-bottom:12px"><span class="chip" id="respCount" style="background:#F5F3FF;border-color:#C4B5FD;color:#6D28D9">0 رد</span></div>
+      <div id="respSummary"></div>
+    </div>
+    <div class="cd a-or"><h3>🧾 الردود الخام</h3><div id="respList"></div></div>
+  </div>
+
+  <div id="tab-share" class="hidden">
+    <div class="cd a-or">
+      <h3>🔗 لينك الاستبيان <span class="sp"></span><span class="chip" id="linkSize">0 KB</span></h3>
+      <p class="desc">ℹ️ اللينك ده جواه الاستبيان كامل بالأسئلة والصور — ابعتوه واتساب أو انسخوه.</p>
+      <div class="ac"><input class="inp" id="shareLink" readonly dir="ltr" style="text-align:left;font-size:11px"><button class="bt oo sm" id="btnCopyLink">📋 نسخ</button></div>
+      <div class="note red hidden" id="linkWarn">⚠️ اللينك كبير جداً بسبب الصور المرفوعة! للمشاركة على واتساب الأفضل تستخدم صور بروابط (URL) أو تقلل عدد الصور المرفوعة.</div>
+      <div class="ac" style="margin-top:11px">
+        <button class="bt gg sm" id="btnWa">🟢 مشاركة واتساب</button>
+        <button class="bt ss sm" id="btnPreview">👁 معاينة وضع المستخدم</button>
+      </div>
+      <div style="text-align:center;margin-top:14px"><img id="qrImg" alt="QR" style="width:150px;height:150px;border-radius:16px;border:2px solid var(--ln)"></div>
+    </div>
+    <div class="cd a-sky">
+      <h3>📥 استقبال الردود على Google Sheets (اختياري)</h3>
+      <p class="desc">ℹ️ اعمل Google Apps Script Web App وحط اللينك هنا، وكل رد هيتبعتلك تلقائياً.</p>
+      <div class="ac"><input class="inp" id="webhook" dir="ltr" style="text-align:left;font-size:11px" placeholder="https://script.google.com/macros/s/.../exec"><button class="bt gg sm" id="btnSaveHook">💾 حفظ</button></div>
+      <div class="note">📌 عشان اللينك يشتغل على موبايلات ناس تانية: ارفع الملف مرة واحدة مجاناً على GitHub Pages أو Netlify، وشارك لينك الموقع + كود الاستبيان. من غير رفع، اللينك بيشتغل للمعاينة على جهازك.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ================= FILL ================= -->
+<div id="fillWrap" class="hidden"></div>
+<div id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+var $=function(i){return document.getElementById(i);};
+var $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s));};
+function toast(m,t){var d=document.createElement('div');d.className='tst '+(t||'info');d.textContent=m;$('toast').appendChild(d);setTimeout(function(){d.remove();},2600);}
+function enc(o){return btoa(unescape(encodeURIComponent(JSON.stringify(o))));}
+function dec(s){try{return JSON.parse(decodeURIComponent(escape(atob(s))));}catch(e){return null;}}
+function code6(){return Math.random().toString(36).slice(2,8).toUpperCase();}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+/* ============ built-in device artwork ============ */
+function devField(){return '<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">'
++'<defs><linearGradient id="f_sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7DD3FC"/><stop offset="1" stop-color="#E0F2FE"/></linearGradient>'
++'<linearGradient id="f_body" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4ADE80"/><stop offset="1" stop-color="#16A34A"/></linearGradient>'
++'<linearGradient id="f_sol" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38BDF8"/><stop offset="1" stop-color="#1D4ED8"/></linearGradient></defs>'
++'<rect width="400" height="260" fill="url(#f_sky)"/><circle cx="330" cy="48" r="26" fill="#FDE047"/><g stroke="#FDE047" stroke-width="3" opacity=".8"><line x1="330" y1="10" x2="330" y2="2"/><line x1="366" y1="48" x2="376" y2="48"/><line x1="356" y1="22" x2="363" y2="15"/></g>'
++'<ellipse cx="90" cy="46" rx="34" ry="13" fill="#fff" opacity=".9"/><ellipse cx="130" cy="54" rx="26" ry="10" fill="#fff" opacity=".75"/>'
++'<rect y="180" width="400" height="80" fill="#A16207"/><rect y="180" width="400" height="14" fill="#854D0E"/>'
++cropRow(20)+cropRow(70)+cropRow(120)+cropRow(170)+cropRow(220)+cropRow(270)+cropRow(320)+cropRow(370)
++'<ellipse cx="200" cy="216" rx="96" ry="12" fill="#000" opacity=".18"/>'
++'<rect x="128" y="196" width="144" height="26" rx="13" fill="#1E293B"/><circle cx="152" cy="209" r="11" fill="#475569"/><circle cx="200" cy="209" r="11" fill="#475569"/><circle cx="248" cy="209" r="11" fill="#475569"/>'
++'<rect x="136" y="140" width="128" height="52" rx="14" fill="url(#f_body)" stroke="#14532D" stroke-width="2.5"/>'
++'<rect x="146" y="152" width="46" height="28" rx="7" fill="#0F172A"/><circle cx="160" cy="164" r="5" fill="#A3E635"/><circle cx="178" cy="164" r="5" fill="#A3E635"/>'
++'<rect x="200" y="152" width="54" height="12" rx="6" fill="#fff" opacity=".85"/><text x="227" y="161.5" font-size="9" font-weight="bold" text-anchor="middle" fill="#15803D" font-family="sans-serif">AKHDAR</text>'
++'<rect x="200" y="170" width="54" height="10" rx="5" fill="#F97316"/>'
++'<polygon points="142,136 258,136 244,112 156,112" fill="url(#f_sol)" stroke="#0F172A" stroke-width="2"/><g stroke="#0F172A" stroke-width="1" opacity=".6"><line x1="170" y1="113" x2="163" y2="135"/><line x1="200" y1="112" x2="200" y2="136"/><line x1="230" y1="113" x2="237" y2="135"/><line x1="150" y1="124" x2="250" y2="124"/></g>'
++'<line x1="136" y1="152" x2="112" y2="128" stroke="#14532D" stroke-width="5"/><circle cx="108" cy="124" r="9" fill="#0F172A"/><circle cx="108" cy="124" r="4" fill="#38BDF8"/>'
++'<line x1="264" y1="176" x2="284" y2="176" stroke="#14532D" stroke-width="4"/><circle cx="288" cy="176" r="4" fill="#EF4444"/>'
++'<line x1="262" y1="140" x2="272" y2="120" stroke="#14532D" stroke-width="3"/><circle cx="274" cy="116" r="4" fill="#EC4899"/>'
++'</svg>';}
+function cropRow(x){var cols=['#EF4444','#FACC15','#A855F7','#F97316'];var c=cols[Math.floor(x/50)%4];
+return '<g><circle cx="'+x+'" cy="196" r="15" fill="#16A34A"/><circle cx="'+(x-9)+'" cy="203" r="11" fill="#15803D"/><circle cx="'+(x+9)+'" cy="203" r="11" fill="#15803D"/><circle cx="'+x+'" cy="190" r="5" fill="'+c+'"/></g>';}
+function devSpray(){return '<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">'
++'<defs><linearGradient id="s_bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#DCFCE7"/><stop offset="1" stop-color="#F0FDF4"/></linearGradient>'
++'<linearGradient id="s_leaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4ADE80"/><stop offset="1" stop-color="#15803D"/></linearGradient></defs>'
++'<rect width="400" height="260" fill="url(#s_bg)"/>'
++'<path d="M210 230 C120 200 110 110 140 66 C230 40 330 60 340 130 C345 190 290 220 210 230 Z" fill="url(#s_leaf)" stroke="#14532D" stroke-width="3"/>'
++'<path d="M210 224 C200 170 190 120 158 78" stroke="#14532D" stroke-width="3" fill="none"/>'
++'<g fill="#FDE047" opacity=".55"><circle cx="250" cy="110" r="10"/><circle cx="292" cy="150" r="8"/><circle cx="230" cy="170" r="7"/></g>'
++'<g fill="#DC2626"><circle cx="252" cy="112" r="4.5"/><circle cx="262" cy="122" r="3.5"/><circle cx="243" cy="124" r="3.5"/><circle cx="290" cy="150" r="4"/><circle cx="299" cy="158" r="3"/></g>'
++'<rect x="226" y="92" width="62" height="50" rx="8" fill="none" stroke="#16A34A" stroke-width="3.5" stroke-dasharray="7 5"/>'
++'<rect x="226" y="74" width="76" height="17" rx="8" fill="#16A34A"/><text x="264" y="86.5" font-size="10.5" font-weight="bold" text-anchor="middle" fill="#fff" font-family="sans-serif">آفة 92% 🎯</text>'
++'<rect x="18" y="96" width="86" height="40" rx="12" fill="#16A34A" stroke="#14532D" stroke-width="2.5"/><rect x="26" y="104" width="30" height="24" rx="6" fill="#0F172A"/><circle cx="36" cy="114" r="3.5" fill="#A3E635"/><circle cx="48" cy="114" r="3.5" fill="#A3E635"/>'
++'<rect x="104" y="110" width="42" height="12" rx="6" fill="#15803D"/><rect x="146" y="108" width="14" height="16" rx="4" fill="#F97316"/>'
++'<g fill="#38BDF8" opacity=".85"><circle cx="176" cy="112" r="4"/><circle cx="190" cy="104" r="3.4"/><circle cx="192" cy="120" r="3.8"/><circle cx="206" cy="110" r="3"/><circle cx="204" cy="126" r="2.6"/><circle cx="218" cy="116" r="2.4"/></g>'
++'<text x="60" y="230" font-size="13" font-weight="bold" fill="#15803D" font-family="sans-serif">رش موضعي 💧 نبتة واحدة بس</text>'
++'</svg>';}
+function devCharge(){return '<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">'
++'<defs><linearGradient id="c_sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7C3AED"/><stop offset=".5" stop-color="#EC4899"/><stop offset="1" stop-color="#FBBF24"/></linearGradient>'
++'<linearGradient id="c_body" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4ADE80"/><stop offset="1" stop-color="#16A34A"/></linearGradient>'
++'<linearGradient id="c_sol" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38BDF8"/><stop offset="1" stop-color="#1D4ED8"/></linearGradient></defs>'
++'<rect width="400" height="260" fill="url(#c_sky)"/><circle cx="200" cy="182" r="34" fill="#FDE047"/><circle cx="200" cy="182" r="46" fill="#FDE047" opacity=".35"/>'
++'<g fill="#fff" opacity=".8"><circle cx="60" cy="40" r="2.5"/><circle cx="120" cy="26" r="2"/><circle cx="300" cy="34" r="2.5"/><circle cx="350" cy="60" r="2"/></g>'
++'<rect y="196" width="400" height="64" fill="#3F6212"/><rect y="196" width="400" height="10" fill="#365314"/>'
++'<rect x="66" y="120" width="10" height="80" fill="#475569"/><polygon points="28,124 118,124 104,84 42,84" fill="url(#c_sol)" stroke="#0F172A" stroke-width="2.5"/><g stroke="#0F172A" stroke-width="1" opacity=".6"><line x1="56" y1="86" x2="48" y2="122"/><line x1="73" y1="85" x2="73" y2="124"/><line x1="90" y1="86" x2="98" y2="122"/><line x1="36" y1="104" x2="110" y2="104"/></g>'
++'<path d="M76 200 C120 214 150 214 176 204" stroke="#FACC15" stroke-width="4" fill="none" stroke-dasharray="8 6"/>'
++'<ellipse cx="250" cy="212" rx="86" ry="10" fill="#000" opacity=".25"/>'
++'<rect x="186" y="192" width="128" height="24" rx="12" fill="#1E293B"/><circle cx="208" cy="204" r="10" fill="#475569"/><circle cx="250" cy="204" r="10" fill="#475569"/><circle cx="292" cy="204" r="10" fill="#475569"/>'
++'<rect x="194" y="140" width="112" height="48" rx="13" fill="url(#c_body)" stroke="#14532D" stroke-width="2.5"/>'
++'<rect x="204" y="150" width="40" height="26" rx="6" fill="#0F172A"/><circle cx="216" cy="161" r="4" fill="#A3E635"/><circle cx="232" cy="161" r="4" fill="#A3E635"/>'
++'<rect x="252" y="150" width="44" height="26" rx="6" fill="#fff" opacity=".9"/><rect x="256" y="154" width="10" height="18" rx="2" fill="#22C55E"/><rect x="268" y="154" width="10" height="18" rx="2" fill="#22C55E"/><rect x="280" y="154" width="10" height="18" rx="2" fill="#A3E635"/>'
++'<path d="M274 146 l-6 10 h5 l-4 9 l10 -12 h-5 l5 -7 z" fill="#FACC15" stroke="#B45309" stroke-width="1"/>'
++'<polygon points="200,136 300,136 288,114 212,114" fill="url(#c_sol)" stroke="#0F172A" stroke-width="2"/>'
++'<text x="250" y="248" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#ECFCCB" font-family="sans-serif">محطة الشحن الشمسي ☀️🔋</text>'
++'</svg>';}
+function devParts(){return '<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">'
++'<defs><linearGradient id="p_bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#EFF6FF"/><stop offset="1" stop-color="#F0F9FF"/></linearGradient>'
++'<linearGradient id="p_body" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4ADE80"/><stop offset="1" stop-color="#16A34A"/></linearGradient></defs>'
++'<rect width="400" height="260" fill="url(#p_bg)"/><g fill="#CBD5E1" opacity=".5">'+dots()+'</g>'
++'<rect x="120" y="176" width="160" height="28" rx="14" fill="#1E293B"/><circle cx="146" cy="190" r="12" fill="#475569"/><circle cx="200" cy="190" r="12" fill="#475569"/><circle cx="254" cy="190" r="12" fill="#475569"/>'
++'<rect x="128" y="118" width="144" height="54" rx="14" fill="url(#p_body)" stroke="#14532D" stroke-width="2.5"/>'
++'<rect x="196" y="128" width="66" height="34" rx="7" fill="#BAE6FD" opacity=".8" stroke="#0369A1" stroke-width="2"/><rect x="200" y="142" width="58" height="16" rx="4" fill="#38BDF8" opacity=".85"/>'
++'<rect x="138" y="128" width="44" height="26" rx="6" fill="#0F172A"/><circle cx="152" cy="139" r="4.5" fill="#A3E635"/><circle cx="168" cy="139" r="4.5" fill="#A3E635"/>'
++'<polygon points="134,114 266,114 250,88 150,88" fill="#1D4ED8" stroke="#0F172A" stroke-width="2"/><g stroke="#0F172A" stroke-width="1" opacity=".6"><line x1="166" y1="90" x2="158" y2="112"/><line x1="200" y1="88" x2="200" y2="114"/><line x1="234" y1="90" x2="242" y2="112"/></g>'
++'<line x1="128" y1="132" x2="102" y2="106" stroke="#14532D" stroke-width="5"/><circle cx="98" cy="102" r="10" fill="#0F172A"/><circle cx="98" cy="102" r="4.5" fill="#38BDF8"/>'
++'<circle cx="230" cy="170" r="9" fill="#F97316" stroke="#9A3412" stroke-width="2"/><line x1="272" y1="160" x2="292" y2="150" stroke="#14532D" stroke-width="4"/><circle cx="296" cy="148" r="4.5" fill="#EF4444"/>'
++tag(98,60,'📷 كاميرا ذكية',98,92)+tag(230,60,'☀️ لوح شمسي',222,86)+tag(330,120,'💧 خزان',266,140)+tag(60,150,'👁 عين AI',90,112)+tag(330,180,'🚿 فوهة رش',296,152)+tag(200,236,'🚜 جنزير مطاطي',200,206)
++'</svg>';}
+function dots(){var s='';for(var y=20;y<260;y+=24)for(var x=16;x<400;x+=24)s+='<circle cx="'+x+'" cy="'+y+'" r="1.6"/>';return s;}
+function tag(x,y,t,lx,ly){return '<line x1="'+x+'" y1="'+(y+8)+'" x2="'+lx+'" y2="'+ly+'" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4 3"/><rect x="'+(x-42)+'" y="'+(y-8)+'" width="84" height="18" rx="9" fill="#fff" stroke="#CBD5E1" stroke-width="1.5"/><text x="'+x+'" y="'+(y+5)+'" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#334155" font-family="sans-serif">'+t+'</text>';}
+var BUILTIN=[{svg:devSpray(),t:'🎯 الرش الموضعي'},{svg:devCharge(),t:'☀️ الشحن الشمسي'},{svg:devParts(),t:'🔧 مكونات الجهاز'}];
+var QCOL=['#16A34A','#F97316','#EC4899','#8B5CF6','#0EA5E9','#EAB308','#0D9488','#EF4444'];
+/* ============ default form ============ */
+function defaultForm(){return{code:code6(),images:[],
+title:'استبيان المزارعين — روبوت أخضر AKHDAR',
+welcome:'أهلاً بيك يا بطل 🌱 معانا دقايق قليلة هتساعدنا نفهم اللي بيحصل في حقلك بجد، عشان نطورلك روبوت «أخضر» بيحل مشاكلك إنت مش مشاكل حد تاني.',
+about:'«أخضر» روبوت أرضي ذكي بيشتغل في كل المحاصيل: خضروات، فواكه، محاصيل حقلية وصوب زراعية. بيمشي بين الخطوط، بيصور الأوراق بكاميرا ذكاء اصطناعي ويكتشف الآفات والأمراض بدري جداً، وبيرش النبتة المصابة بس بكمية صغيرة جداً بدل ما يغرق الحقل كله مبيدات. بيشتغل بالطاقة الشمسية، وبيشتغل من غير إنترنت، وبيبعتلك تقرير بسيط على موبايلك: فين المشكلة، اتعمل إيه، ووفرت كام فلوس.',
+webhook:'',questions:[
+{id:1,type:'radio',text:'ما نوع محاصيلك الأساسية؟',opts:['خضروات مكشوفة','فواكه','محاصيل حقلية (قمح/ذرة/أرز)','صوب زراعية','أخرى'],req:true},
+{id:2,type:'radio',text:'كم تنفق تقريباً على المبيدات للفدان في الموسم؟',opts:['أقل من 5 آلاف جنيه','من 5 إلى 10 آلاف','من 10 إلى 15 ألف','أكثر من 15 ألف'],req:true},
+{id:3,type:'check',text:'ما أكبر المشاكل اللي بتواجهك في مكافحة الآفات؟',opts:['اكتشاف الإصابة متأخر','غلو المبيدات','نقص عمالة الرش','رفض شحنات تصدير','ضرر الحشرات النافعة','مفيش مشاكل'],req:true},
+{id:4,type:'yesno',text:'هل سمعت قبل كده عن روبوتات الزراعة الذكية؟',opts:['نعم','لا'],req:true},
+{id:5,type:'rate',text:'قد إيه مهتم تجرب روبوت «أخضر» بيرش النبتة المصابة بس؟',opts:[],req:true},
+{id:6,type:'text',text:'إيه أكتر حاجة نفسك تتحل في حقلك السنة دي؟',opts:[],req:false}
+]};}
+/* ============ storage ============ */
+var CUR=null,editId=null;
+function saveCur(){try{localStorage.setItem('ssform_'+CUR.code,JSON.stringify(CUR));}catch(e){toast('⚠️ مساحة التخزين مليت — قلل الصور','err');}}
+function loadSaved(){try{var k=localStorage.getItem('ss_last');if(k){var v=localStorage.getItem('ssform_'+k);if(v)return JSON.parse(v);}}catch(e){}return null;}
+function resps(){try{return JSON.parse(localStorage.getItem('ssresp_'+CUR.code)||'[]');}catch(e){return[];}}
+function pushResp(r){var a=resps();a.unshift(r);try{localStorage.setItem('ssresp_'+CUR.code,JSON.stringify(a));}catch(e){}}
+function imgs(){return (CUR.images&&CUR.images.length)?CUR.images:null;}
+/* ============ image manager ============ */
+function addImage(src,cap){CUR.images=CUR.images||[];CUR.images.push({src:src,cap:cap||''});saveCur();renderImgs();renderShare();}
+$('imgFile').onchange=function(e){
+  var files=Array.prototype.slice.call(e.target.files);if(!files.length)return;
+  var done=0;
+  files.forEach(function(f){
+    var rd=new FileReader();
+    rd.onload=function(){
+      var im=new Image();
+      im.onload=function(){
+        var sc=Math.min(1,900/im.width);
+        var c=document.createElement('canvas');
+        c.width=Math.max(1,Math.round(im.width*sc));c.height=Math.max(1,Math.round(im.height*sc));
+        c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+        addImage(c.toDataURL('image/jpeg',0.72),f.name.replace(/\.[^.]+$/,''));
+        done++;if(done===files.length)toast('تم إضافة '+done+' صورة 🖼','ok');
+      };
+      im.onerror=function(){toast('ملف مش صورة صحيحة','err');};
+      im.src=rd.result;
+    };
+    rd.readAsDataURL(f);
+  });
+  e.target.value='';
+};
+$('btnAddUrl').onclick=function(){
+  var u=$('imgUrl').value.trim();
+  if(!/^https?:\/\//i.test(u)){toast('حط رابط صورة صحيح يبدأ بـ https','err');return;}
+  addImage(u,'');$('imgUrl').value='';toast('تمت الإضافة بالرابط 🔗','ok');
+};
+$('btnResetImgs').onclick=function(){
+  if(imgs()&&confirm('رجوع للرسومات الافتراضية وحذف صورك؟')){CUR.images=[];saveCur();renderImgs();renderShare();toast('رجعنا للرسومات الافتراضية 🌿','info');}
+};
+function renderImgs(){
+  var list=imgs()||[];
+  $('imgNote').classList.toggle('hidden',list.length>0);
+  $('imgList').innerHTML=list.map(function(im,i){
+    return '<div class="imgitem">'+(i===0?'<span class="cv">⭐ الغلاف</span>':'')
+    +'<div class="th"><img src="'+im.src+'" alt="" onerror="this.outerHTML=\'<span class=ph>🖼</span>\'"></div>'
+    +'<div class="bd"><input value="'+esc(im.cap)+'" placeholder="وصف الصورة…" data-cap="'+i+'">'
+    +'<div class="ac">'+(i!==0?'<button class="bt oo xs" data-cov="'+i+'">⭐ غلاف</button>':'')
+    +'<button class="bt rd xs" data-rm="'+i+'">🗑 حذف</button></div></div></div>';
+  }).join('');
+}
+$('imgList').oninput=function(e){var i=e.target.dataset.cap;if(i==null)return;CUR.images[+i].cap=e.target.value;saveCur();};
+$('imgList').onclick=function(e){
+  var cov=e.target.closest('[data-cov]'),rm=e.target.closest('[data-rm]');
+  if(cov){var i=+cov.dataset.cov;var im=CUR.images.splice(i,1)[0];CUR.images.unshift(im);saveCur();renderImgs();renderShare();toast('الصورة بقت الغلاف ⭐','ok');}
+  if(rm){CUR.images.splice(+rm.dataset.rm,1);saveCur();renderImgs();renderShare();toast('تم حذف الصورة 🗑','info');}
+};
+/* ============ admin render ============ */
+function renderAdmin(){$('fTitle').value=CUR.title;$('fWelcome').value=CUR.welcome;$('fAbout').value=CUR.about;$('webhook').value=CUR.webhook||'';
+renderImgs();renderQList();renderShare();renderResp();}
+function renderQList(){$('qCount').textContent=CUR.questions.length+' سؤال';
+$('qList').innerHTML=CUR.questions.map(function(q,i){
+var t={radio:'⭕ اختيار من متعدد',check:'☑️ اختيار متعدد',yesno:'✅ نعم/لا',text:'✍️ نص',num:'🔢 رقم',rate:'⭐ تقييم'}[q.type];
+var c=QCOL[i%QCOL.length];
+return '<div class="qi" style="--qc:'+c+'"><div class="qt"><span class="n">'+(i+1)+'</span><span>'+esc(q.text)+'<br><small style="color:var(--mu);font-weight:700">'+t+'</small></span></div>'
++(q.opts&&q.opts.length?'<div class="ops">'+q.opts.map(function(o){return '<span class="chip">'+esc(o)+'</span>';}).join('')+'</div>':'')
++'<div class="ops"><span class="chip'+(q.req?' req':'')+'">'+(q.req?'⛔ إجباري':'اختياري')+'</span></div>'
++'<div class="act"><button class="bt gh xs" data-up="'+q.id+'">⬆</button><button class="bt gh xs" data-dn="'+q.id+'">⬇</button><button class="bt ss xs" data-ed="'+q.id+'">✏️ تعديل</button><button class="bt rd xs" data-del="'+q.id+'">🗑 حذف</button></div></div>';
+}).join('')||'<p class="desc">مفيش أسئلة لسه — ضيف أول سؤال من فوق 👆</p>';}
+function renderShare(){var base=location.href.split('#')[0];var link=base+'#f='+enc(CUR);$('shareLink').value=link;
+var kb=link.length/1024;$('linkSize').textContent=kb.toFixed(0)+' KB';
+$('linkWarn').classList.toggle('hidden',kb<60);
+var qr=$('qrImg');qr.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='+encodeURIComponent(link);qr.onerror=function(){qr.style.display='none';};qr.onload=function(){qr.style.display='';};}
+var BARS=['linear-gradient(90deg,#16A34A,#A3E635)','linear-gradient(90deg,#F97316,#FBBF24)','linear-gradient(90deg,#EC4899,#F472B6)','linear-gradient(90deg,#8B5CF6,#A78BFA)','linear-gradient(90deg,#0EA5E9,#38BDF8)'];
+function renderResp(){var rs=resps();$('respCount').textContent=rs.length+' رد';
+var sum=CUR.questions.map(function(q,i){var bc=BARS[i%BARS.length];
+if(q.type==='text'){var vals=rs.map(function(r){return r.a[q.id];}).filter(function(v){return v;});return '<div class="sum"><div class="st">'+(i+1)+'. '+esc(q.text)+'</div>'+(vals.length?vals.slice(0,8).map(function(v){return '<div class="sr"><span>💬 '+esc(v)+'</span></div>';}).join(''):'<span class="desc">لا إجابات بعد</span>')+'</div>';}
+if(q.type==='num'){var ns=rs.map(function(r){return parseFloat(r.a[q.id]);}).filter(function(v){return!isNaN(v);});var av=ns.length?(ns.reduce(function(a,b){return a+b;},0)/ns.length).toFixed(1):'—';return '<div class="sum"><div class="st">'+(i+1)+'. '+esc(q.text)+'</div><div class="sr"><span>🔢 المتوسط: '+av+' ('+ns.length+' إجابة)</span></div></div>';}
+if(q.type==='rate'){var dist=[0,0,0,0,0];rs.forEach(function(r){var v=+r.a[q.id];if(v>=1&&v<=5)dist[v-1]++;});var tot=rs.filter(function(r){return r.a[q.id];}).length;var avg=tot?rs.reduce(function(a,r){return a+(+r.a[q.id]||0);},0)/tot:0;return '<div class="sum"><div class="st">'+(i+1)+'. '+esc(q.text)+' (متوسط ⭐ '+avg.toFixed(1)+')</div>'+dist.map(function(c,k){return '<div class="sr"><span class="lb">'+(k+1)+' ⭐</span><span class="bar"><i style="width:'+(tot?Math.round(c/tot*100):0)+'%;background:'+bc+'"></i></span><span class="ct">'+c+'</span></div>';}).join('')+'</div>';}
+var opts=q.type==='yesno'?['نعم','لا']:q.opts;var cnt={};opts.forEach(function(o){cnt[o]=0;});
+rs.forEach(function(r){var v=r.a[q.id];if(!v)return;(Array.isArray(v)?v:[v]).forEach(function(x){if(cnt[x]!=null)cnt[x]++;});});
+var tot2=rs.length||1;
+return '<div class="sum"><div class="st">'+(i+1)+'. '+esc(q.text)+'</div>'+opts.map(function(o){return '<div class="sr"><span class="lb">'+esc(o)+'</span><span class="bar"><i style="width:'+Math.round((cnt[o]||0)/tot2*100)+'%;background:'+bc+'"></i></span><span class="ct">'+(cnt[o]||0)+'</span></div>';}).join('')+'</div>';
+}).join('');
+$('respSummary').innerHTML=sum||'<p class="desc">ضيف أسئلة الأول</p>';
+$('respList').innerHTML=rs.map(function(r,i){return '<div class="resp"><div class="rt">🧑‍🌾 رد #'+(i+1)+' · '+new Date(r.t).toLocaleString('ar-EG')+'</div>'+CUR.questions.map(function(q){var v=r.a[q.id];if(v==null||v==='')return '';return '<div><b>'+esc(q.text)+'</b>: '+(Array.isArray(v)?v.map(esc).join('، '):esc(v))+'</div>';}).join('')+'</div>';}).join('')||'<p class="desc">مفيش ردود لسه. شارك اللينك واستنى الردود 👍</p>';}
+$$('.tab').forEach(function(t){t.onclick=function(){$$('.tab').forEach(function(x){x.classList.toggle('on',x===t);});['builder','resp','share'].forEach(function(k){$('tab-'+k).classList.toggle('hidden',k!==t.dataset.tab);});if(t.dataset.tab==='resp')renderResp();};});
+['fTitle','fWelcome','fAbout'].forEach(function(id){$(id).oninput=function(){CUR.title=$('fTitle').value;CUR.welcome=$('fWelcome').value;CUR.about=$('fAbout').value;saveCur();renderShare();};});
+$('qType').onchange=function(){$('optsWrap').style.display=(this.value==='radio'||this.value==='check')?'':'none';};
+function resetQForm(){editId=null;$('qText').value='';$('qOpts').value='';$('qReq').checked=true;$('qAdd').innerHTML='➕ إضافة السؤال';$('editBadge').classList.add('hidden');$('qCancelEdit').classList.add('hidden');}
+$('qAdd').onclick=function(){var txt=$('qText').value.trim();if(!txt){toast('اكتب نص السؤال الأول','err');return;}
+var ty=$('qType').value;var opts=(ty==='radio'||ty==='check')?$('qOpts').value.split(/[،,]/).map(function(s){return s.trim();}).filter(Boolean):(ty==='yesno'?['نعم','لا']:[]);
+if((ty==='radio'||ty==='check')&&opts.length<2){toast('اكتب خيارين على الأقل','err');return;}
+if(editId){var q=CUR.questions.find(function(x){return x.id===editId;});if(q){q.text=txt;q.type=ty;q.opts=opts;q.req=$('qReq').checked;}toast('تم حفظ التعديل ✅','ok');}
+else{CUR.questions.push({id:Date.now(),type:ty,text:txt,opts:opts,req:$('qReq').checked});toast('تمت إضافة السؤال 🎉','ok');}
+resetQForm();saveCur();renderQList();};
+$('qCancelEdit').onclick=resetQForm;
+$('qList').onclick=function(e){var id,up=e.target.closest('[data-up]'),dn=e.target.closest('[data-dn]'),ed=e.target.closest('[data-ed]'),dl=e.target.closest('[data-del]');
+if(up)id=+up.dataset.up;if(dn)id=+dn.dataset.dn;if(ed)id=+ed.dataset.ed;if(dl)id=+dl.dataset.del;if(!id)return;
+var i=CUR.questions.findIndex(function(x){return x.id===id;});if(i<0)return;
+if(up&&i>0){var t=CUR.questions[i-1];CUR.questions[i-1]=CUR.questions[i];CUR.questions[i]=t;}
+if(dn&&i<CUR.questions.length-1){var t2=CUR.questions[i+1];CUR.questions[i+1]=CUR.questions[i];CUR.questions[i]=t2;}
+if(dl){CUR.questions.splice(i,1);toast('تم حذف السؤال 🗑','info');}
+if(ed){var q=CUR.questions[i];editId=q.id;$('qText').value=q.text;$('qType').value=q.type;$('qType').onchange();$('qOpts').value=(q.opts||[]).join('، ');$('qReq').checked=q.req;$('qAdd').innerHTML='💾 حفظ التعديل';$('editBadge').classList.remove('hidden');$('qCancelEdit').classList.remove('hidden');}
+saveCur();renderQList();};
+$('btnCopyLink').onclick=function(){var i=$('shareLink');i.select();try{document.execCommand('copy');}catch(e){}if(navigator.clipboard)navigator.clipboard.writeText(i.value);toast('تم نسخ اللينك 📋','ok');};
+$('btnWa').onclick=function(){var link=$('shareLink').value;var msg='🌿 روبوت «أخضر» AKHDAR بيطلب رأيك!\n🤖 روبوت زراعي ذكي بيكتشف الآفات وبيرش النبتة المصابة بس بالطاقة الشمسية.\n📝 شاركنا في الاستبيان (دقايق بس):\n'+link;window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');};
+$('btnPreview').onclick=function(){enterFill(CUR,true);};
+$('btnSaveHook').onclick=function(){CUR.webhook=$('webhook').value.trim();saveCur();toast('تم حفظ رابط الاستقبال 💾','ok');};
+$('btnNewForm').onclick=function(){if(confirm('بدء استبيان جديد فاضي؟ الحالي محفوظ بلينكه.')){CUR=defaultForm();CUR.questions=[];saveCur();try{localStorage.setItem('ss_last',CUR.code);}catch(e){}resetQForm();renderAdmin();toast('استبيان جديد جاهز ➕','ok');}};
+$('btnCsv').onclick=function(){var rs=resps();if(!rs.length){toast('مفيش ردود للتصدير','err');return;}
+var head=['التوقيت'].concat(CUR.questions.map(function(q){return q.text;}));
+var rows=rs.map(function(r){return [new Date(r.t).toLocaleString('ar-EG')].concat(CUR.questions.map(function(q){var v=r.a[q.id];return Array.isArray(v)?v.join(' | '):(v==null?'':v);}));});
+var csv='\uFEFF'+[head].concat(rows).map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"';}).join(',');}).join('\n');
+var b=new Blob([csv],{type:'text/csv;charset=utf-8'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='akhdar_responses_'+CUR.code+'.csv';a.click();toast('تم تصدير CSV ⬇','ok');};
+$('btnClearResp').onclick=function(){if(confirm('مسح كل الردود المحفوظة؟')){try{localStorage.removeItem('ssresp_'+CUR.code);}catch(e){}renderResp();toast('تم المسح 🗑','info');}};
+/* ============ fill mode ============ */
+var FC=null,FA={},preview=false;
+function enterFill(cfg,prev){FC=cfg;FA={};preview=!!prev;$('adminWrap').classList.add('hidden');$('fillWrap').classList.remove('hidden');renderWelcome();window.scrollTo(0,0);}
+function galItem(it){
+  if(it.svg)return '<div class="fgi">'+it.svg+'<p>'+it.t+'</p></div>';
+  return '<div class="fgi"><img src="'+it.src+'" alt="'+esc(it.cap||'')+'" onerror="this.style.display=\'none\'"><p>'+esc(it.cap||'📷 من الجهاز')+'</p></div>';
+}
+function renderWelcome(){
+  var custom=imgs();
+  var hero=custom?('<img class="dev" src="'+custom[0].src+'" alt="'+esc(custom[0].cap||'')+'" onerror="this.outerHTML=\''+devField().replace(/'/g,"\\'")+'\'">'):devField();
+  var galItems=custom?custom.slice(1,4).map(galItem).join(''):BUILTIN.map(galItem).join('');
+  $('fillWrap').innerHTML='<div class="fhero">'+hero
+  +'<h1>🌿 <i>أخضر</i> AKHDAR</h1><h1 style="font-size:16px">'+esc(FC.title)+'</h1><p>'+esc(FC.welcome)+'</p>'
+  +'<div class="fgal">'+galItems+'</div>'
+  +'<button class="bt gg" id="fStart" style="width:100%;justify-content:center;padding:14px;font-size:14px">🌱 ابدأ الاستبيان ←</button>'
+  +(preview?'<button class="bt gh sm" id="fBack" style="width:100%;justify-content:center;margin-top:9px">← رجوع لوضع المنشئ</button>':'')
+  +'</div>'
+  +'<div class="fabout"><h3>ℹ️ إيه هو روبوت «أخضر»؟</h3><p>'+esc(FC.about)+'</p></div>';
+  $('fStart').onclick=renderQuestions;
+  if(preview)$('fBack').onclick=function(){location.hash='';location.reload();};}
+function renderQuestions(){
+var html='<div class="fprog"><div class="tx"><span>🌿 '+esc(FC.title)+'</span><span id="fPct">0%</span></div><div class="bar"><i id="fBar" style="width:0%"></i></div></div>';
+html+=FC.questions.map(function(q,i){var c=QCOL[i%QCOL.length];var inner='';
+if(q.type==='radio'||q.type==='yesno'){inner=(q.type==='yesno'?['نعم','لا']:q.opts).map(function(o){return '<div class="opt" style="--qc:'+c+'" data-q="'+q.id+'" data-v="'+esc(o)+'"><span class="mk"></span><span>'+esc(o)+'</span></div>';}).join('');}
+else if(q.type==='check'){inner=q.opts.map(function(o){return '<div class="opt sq" style="--qc:'+c+'" data-q="'+q.id+'" data-v="'+esc(o)+'"><span class="mk"></span><span>'+esc(o)+'</span></div>';}).join('');}
+else if(q.type==='rate'){inner='<div class="stars" data-q="'+q.id+'">'+[1,2,3,4,5].map(function(k){return '<button data-k="'+k+'">★</button>';}).join('')+'</div>';}
+else if(q.type==='num'){inner='<input class="inp" type="number" data-q="'+q.id+'" placeholder="اكتب رقم…">';}
+else{inner='<textarea class="inp" data-q="'+q.id+'" placeholder="اكتب إجابتك هنا…"></textarea>';}
+return '<div class="fq" id="fq_'+q.id+'" style="--qc:'+c+'"><div class="qt"><span class="nq">'+(i+1)+'</span><span>'+esc(q.text)+(q.req?' <span class="rq">*</span>':'')+'</span></div>'+inner+'</div>';}).join('');
+html+='<button class="bt gg" id="fSubmit" style="width:100%;justify-content:center;padding:14px;font-size:14px">✅ إرسال الإجابات</button>';
+html+='<button class="bt gh sm" id="fHome" style="width:100%;justify-content:center;margin-top:9px">🏠 رجوع لبداية الاستبيان</button>';
+$('fillWrap').innerHTML=html;bindQuestions();window.scrollTo(0,0);updProg();}
+function bindQuestions(){
+$$('#fillWrap .opt').forEach(function(o){o.onclick=function(){var qid=o.dataset.q,v=o.dataset.v;var q=FC.questions.find(function(x){return String(x.id)===qid;});
+if(q.type==='check'){var arr=FA[qid]||[];var ix=arr.indexOf(v);if(ix>=0)arr.splice(ix,1);else arr.push(v);FA[qid]=arr;o.classList.toggle('on',ix<0);}
+else{FA[qid]=v;$$('#fillWrap .opt[data-q="'+qid+'"]').forEach(function(x){x.classList.toggle('on',x===o);});}
+o.closest('.fq').classList.remove('miss');updProg();};});
+$$('#fillWrap .stars').forEach(function(s){s.onclick=function(e){var b=e.target.closest('button');if(!b)return;FA[s.dataset.q]=+b.dataset.k;Array.prototype.forEach.call(s.querySelectorAll('button'),function(x){x.classList.toggle('on',+x.dataset.k<=+b.dataset.k);});s.closest('.fq').classList.remove('miss');updProg();};});
+$$('#fillWrap input[data-q],#fillWrap textarea[data-q]').forEach(function(inp){inp.oninput=function(){FA[inp.dataset.q]=inp.value;inp.closest('.fq').classList.remove('miss');updProg();};});
+$('fSubmit').onclick=submitFill;$('fHome').onclick=renderWelcome;}
+function answered(q){var v=FA[q.id];if(q.type==='check')return Array.isArray(v)&&v.length>0;if(q.type==='rate')return !!v;return v!=null&&String(v).trim()!=='';}
+function updProg(){var tot=FC.questions.length||1;var done=FC.questions.filter(answered).length;var p=Math.round(done/tot*100);var b=$('fBar');if(b){b.style.width=p+'%';$('fPct').textContent=p+'%';}}
+function submitFill(){var miss=FC.questions.filter(function(q){return q.req&&!answered(q);});
+if(miss.length){miss.forEach(function(q){var el=$('fq_'+q.id);if(el)el.classList.add('miss');});toast('فيه '+miss.length+' سؤال إجباري ناقص ⚠️','err');var el2=$('fq_'+miss[0].id);if(el2)el2.scrollIntoView({behavior:'smooth',block:'center'});return;}
+var rec={t:Date.now(),a:FA};pushResp(rec);
+if(FC.webhook){try{fetch(FC.webhook,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify({form:FC.title,code:FC.code,response:FA})}).catch(function(){});}catch(e){}}
+$('fillWrap').innerHTML='<div class="thanks"><div class="ic">🎉</div><h2>شكراً ليك جداً يا غالي!</h2><p>إجاباتك وصلت 🌿 وهتساعدنا نطور روبوت «أخضر» عشان يحل مشاكل حقلك الحقيقية.<br>🤖☀️💧</p><button class="bt gg" id="fAgain" style="margin-top:18px">🔄 إرسال رد آخر</button></div>';
+$('fAgain').onclick=function(){FA={};renderQuestions();};toast('تم إرسال ردك ✅','ok');window.scrollTo(0,0);}
+/* ============ boot ============ */
+var h=location.hash;
+if(h.indexOf('#f=')===0){var cfg=dec(h.slice(3));if(cfg&&cfg.questions){cfg.images=cfg.images||[];enterFill(cfg,false);}else{CUR=loadSaved()||defaultForm();bootAdmin();}}
+else{CUR=loadSaved()||defaultForm();CUR.images=CUR.images||[];bootAdmin();}
+function bootAdmin(){try{localStorage.setItem('ss_last',CUR.code);}catch(e){}renderAdmin();}
+})();
+</script>
+</body>
+</html>
