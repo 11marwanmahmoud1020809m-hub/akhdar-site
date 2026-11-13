@@ -182,6 +182,10 @@ textarea.inp{min-height:84px;resize:vertical}
   <span class="sp"></span>
   <button class="bt gh sm" id="btnNewForm">＋ استبيان جديد</button>
 </header>
+<div class="note red" style="margin:14px auto 0;max-width:1000px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+⚠️ <b>إنت دلوقتي في وضع المنشئ.</b> اللي بتبعتّه للناس لازم يكون <u>لينك الاستبيان</u> مش لينك الموقع.
+<button class="bt oo xs" id="btnQuickCopy">📋 انسخ لينك الاستبيان دلوقتي</button>
+</div>
 <div class="tabs">
   <button class="tab on" data-tab="builder">🛠 بناء الأسئلة</button>
   <button class="tab" data-tab="resp">📊 الردود</button>
@@ -271,6 +275,15 @@ textarea.inp{min-height:84px;resize:vertical}
         <button class="bt ss sm" id="btnPreview">👁 معاينة وضع المستخدم</button>
       </div>
       <div style="text-align:center;margin-top:14px"><img id="qrImg" alt="QR" style="width:150px;height:150px;border-radius:16px;border:2px solid var(--ln)"></div>
+    </div>
+    <div class="cd a-green">
+      <h3>📦 نشر مضمون: ملف form.json (لينك قصير ما يتكسرش)</h3>
+      <p class="desc">ℹ️ نزّل ملف form.json وارفعه على GitHub جنب index.html بالظبط. بعدها لينك الاستبيان يبقى قصير وثابت: <b id="liveLink" dir="ltr"></b> — ده اللي تبعتّه للناس.</p>
+      <div class="ac">
+        <button class="bt gg sm" id="btnDlJson">⬇ تنزيل form.json</button>
+        <button class="bt oo sm" id="btnCopyLive">📋 نسخ اللينك القصير</button>
+      </div>
+      <div class="note">📌 كل مرة تعدّل الأسئلة: نزّل form.json تاني وارفعه مكان القديم على GitHub (Commit) — نفس اللينك القصير بيتحدث لوحده.</div>
     </div>
     <div class="cd a-sky">
       <h3>📥 استقبال الردود على Google Sheets (اختياري)</h3>
@@ -569,7 +582,9 @@ return '<div class="qi" style="--qc:'+c+'"><div class="qt"><span class="n">'+(i+
 +'<div class="ops"><span class="chip'+(q.req?' req':'')+'">'+(q.req?'⛔ إجباري':'اختياري')+'</span></div>'
 +'<div class="act"><button class="bt gh xs" data-up="'+q.id+'">⬆</button><button class="bt gh xs" data-dn="'+q.id+'">⬇</button><button class="bt ss xs" data-ed="'+q.id+'">✏️ تعديل</button><button class="bt rd xs" data-del="'+q.id+'">🗑 حذف</button></div></div>';
 }).join('')||'<p class="desc">مفيش أسئلة لسه — ضيف أول سؤال من فوق 👆</p>';}
+function liveUrl(){return location.href.split('#')[0].split('?')[0]+'?live=1';}
 function renderShare(){var base=location.href.split('#')[0].split('?')[0];var link=base+'?f='+enc(CUR);$('shareLink').value=link;
+$('liveLink').textContent=liveUrl();
 var kb=link.length/1024;$('linkSize').textContent=kb.toFixed(0)+' KB';
 $('linkWarn').classList.toggle('hidden',kb<60);
 var qr=$('qrImg');qr.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='+encodeURIComponent(link);qr.onerror=function(){qr.style.display='none';};qr.onload=function(){qr.style.display='';};}
@@ -585,7 +600,7 @@ var tot2=rs.length||1;
 return '<div class="sum"><div class="st">'+(i+1)+'. '+esc(q.text)+'</div>'+opts.map(function(o){return '<div class="sr"><span class="lb">'+esc(o)+'</span><span class="bar"><i style="width:'+Math.round((cnt[o]||0)/tot2*100)+'%;background:'+bc+'"></i></span><span class="ct">'+(cnt[o]||0)+'</span></div>';}).join('')+'</div>';
 }).join('');
 $('respSummary').innerHTML=sum||'<p class="desc">ضيف أسئلة الأول</p>';
-$('respList').innerHTML=rs.map(function(r,i){return '<div class="resp"><div class="rt">🧑‍ رد #'+(i+1)+' · '+new Date(r.t).toLocaleString('ar-EG')+'</div>'+CUR.questions.map(function(q){var v=r.a[q.id];if(v==null||v==='')return '';return '<div><b>'+esc(q.text)+'</b>: '+(Array.isArray(v)?v.map(esc).join('، '):esc(v))+'</div>';}).join('')+'</div>';}).join('')||'<p class="desc">مفيش ردود لسه. شارك اللينك واستنى الردود 👍</p>';}
+$('respList').innerHTML=rs.map(function(r,i){return '<div class="resp"><div class="rt">🧑‍🌾 رد #'+(i+1)+' · '+new Date(r.t).toLocaleString('ar-EG')+'</div>'+CUR.questions.map(function(q){var v=r.a[q.id];if(v==null||v==='')return '';return '<div><b>'+esc(q.text)+'</b>: '+(Array.isArray(v)?v.map(esc).join('، '):esc(v))+'</div>';}).join('')+'</div>';}).join('')||'<p class="desc">مفيش ردود لسه. شارك اللينك واستنى الردود 👍</p>';}
 $$('.tab').forEach(function(t){t.onclick=function(){$$('.tab').forEach(function(x){x.classList.toggle('on',x===t);});['builder','resp','share'].forEach(function(k){$('tab-'+k).classList.toggle('hidden',k!==t.dataset.tab);});if(t.dataset.tab==='resp')renderResp();};});
 ['fTitle','fWelcome','fAbout'].forEach(function(id){$(id).oninput=function(){CUR.title=$('fTitle').value;CUR.welcome=$('fWelcome').value;CUR.about=$('fAbout').value;saveCur();renderShare();};});
 $('qType').onchange=function(){$('optsWrap').style.display=(this.value==='radio'||this.value==='check')?'':'none';};
@@ -612,6 +627,9 @@ $('btnLoad20').onclick=function(){
     toast('تم تثبيت الـ20 سؤال ✅','ok');
   }
 };
+$('btnQuickCopy').onclick=function(){var l=$('shareLink').value;if(navigator.clipboard)navigator.clipboard.writeText(l);else prompt('انسخ لينك الاستبيان:',l);toast('اتنسخ لينك الاستبيان ✅ ده اللي تبعتّه','ok');};
+$('btnDlJson').onclick=function(){var b=new Blob([JSON.stringify(CUR)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='form.json';a.click();toast('اتنزّل — ارفعه جنب index.html على GitHub','ok');};
+$('btnCopyLive').onclick=function(){var l=liveUrl();if(navigator.clipboard)navigator.clipboard.writeText(l);else prompt('انسخ:',l);toast('اتنسخ اللينك القصير ✅','ok');};
 $('btnCopyLink').onclick=function(){var i=$('shareLink');i.select();try{document.execCommand('copy');}catch(e){}if(navigator.clipboard)navigator.clipboard.writeText(i.value);toast('تم نسخ اللينك 📋','ok');};
 $('btnWa').onclick=function(){var link=$('shareLink').value;var msg='🌿 روبوت «أخضر» AKHDAR بيطلب رأيك!\n🤖 روبوت زراعي ذكي بيكتشف الآفات وبيرش النبتة المصابة بس بالطاقة الشمسية.\n📝 شاركنا في الاستبيان (دقايق بس):\n'+link;window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');};
 $('btnPreview').onclick=function(){enterFill(CUR,true);};
@@ -690,16 +708,14 @@ var conf='';for(var i=0;i<28;i++){conf+='<span class="conf" style="left:'+(Math.
 $('fillWrap').innerHTML='<div class="thanks">'+conf+'<div class="ck">✓</div><h2>شكراً ليك جداً يا غالي! 🎉</h2><p>إجاباتك وصلت 🌿 وهتساعدنا نطور روبوت «أخضر» عشان يحل مشاكل حقلك الحقيقية.<br>🤖☀️💧</p><button class="fsubmit" id="fAgain" style="max-width:280px;margin:18px auto 0">🔄 إرسال رد آخر</button></div>';
 $('fAgain').onclick=function(){FA={};renderQuestions();};toast('تم إرسال ردك ✅','ok');window.scrollTo(0,0);}
 /* ============ boot ============ */
-var qs=new URLSearchParams(location.search);var sc=qs.get('s');var fq=qs.get('f');var h=location.hash;
+var qs=new URLSearchParams(location.search);var sc=qs.get('s');var fq=qs.get('f');var lv=qs.get('live');var h=location.hash;
 function startFill(cfg){cfg.images=cfg.images||[];enterFill(cfg,false);}
-if(sc&&FB_BASE){
-  fetch(FB_BASE+'/forms/'+sc+'.json').then(function(r){return r.json();}).then(function(cfg){
-    if(cfg&&cfg.questions)startFill(cfg);else{CUR=loadSaved()||defaultForm();bootAdmin();}
-  }).catch(function(){CUR=loadSaved()||defaultForm();bootAdmin();});
-}
-else if(fq){var cfg3=dec(fq);if(cfg3&&cfg3.questions)startFill(cfg3);else{CUR=loadSaved()||defaultForm();bootAdmin();}}
-else if(h.indexOf('#f=')===0){var cfg2=dec(h.slice(3));if(cfg2&&cfg2.questions)startFill(cfg2);else{CUR=loadSaved()||defaultForm();bootAdmin();}}
-else{CUR=loadSaved()||defaultForm();bootAdmin();}
+function toAdmin(){CUR=loadSaved()||defaultForm();bootAdmin();}
+if(lv){fetch('form.json').then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(cfg){if(cfg&&cfg.questions)startFill(cfg);else toAdmin();}).catch(function(){toAdmin();});}
+else if(sc&&FB_BASE){fetch(FB_BASE+'/forms/'+sc+'.json').then(function(r){return r.json();}).then(function(cfg){if(cfg&&cfg.questions)startFill(cfg);else toAdmin();}).catch(function(){toAdmin();});}
+else if(fq){var cfg3=dec(fq);if(cfg3&&cfg3.questions)startFill(cfg3);else toAdmin();}
+else if(h.indexOf('#f=')===0){var cfg2=dec(h.slice(3));if(cfg2&&cfg2.questions)startFill(cfg2);else toAdmin();}
+else{toAdmin();}
 function bootAdmin(){try{localStorage.setItem('ss_last',CUR.code);}catch(e){}CUR.images=CUR.images||[];CUR.questions=CUR.questions&&CUR.questions.length?CUR.questions:clone20();renderAdmin();}
 })();
 </script>
