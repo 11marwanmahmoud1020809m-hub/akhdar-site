@@ -239,7 +239,8 @@ textarea.inp{min-height:84px;resize:vertical}
     </div>
 
     <div class="cd a-pur">
-      <h3>📝 أسئلة الاستبيان <span class="sp"></span><span class="chip" id="qCount">0 سؤال</span></h3>
+      <h3>📝 أسئلة الاستبيان <span class="sp"></span><button class="bt gg xs" id="btnLoad20">📥 تثبيت أسئلة المزارعين الـ20</button><span class="chip" id="qCount">0 سؤال</span></h3>
+      <p class="desc">ℹ️ الزرار الأخضر بيثبّت قائمة الـ20 سؤال الكاملة (اللي عملناها مع المزارعين) بضغطة واحدة.</p>
       <div id="qList"></div>
     </div>
   </div>
@@ -383,7 +384,7 @@ function devSpray(){return '<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/
 +'<rect x="226" y="92" width="64" height="52" rx="6" fill="none" stroke="#00E676" stroke-width="3"/>'
 +'<g stroke="#00E676" stroke-width="5"><path d="M226 104 v-12 h12"/><path d="M290 104 v-12 h-12"/><path d="M226 132 v12 h12"/><path d="M290 132 v12 h-12"/></g>'
 +'<rect x="226" y="70" width="82" height="18" rx="9" fill="#00C853"/><text x="267" y="83" font-size="11" font-weight="bold" text-anchor="middle" fill="#fff" font-family="sans-serif">آفة 92% 🎯</text>'
-+'<g filter="url(#f1sh)"><rect x="14" y="94" width="92" height="44" rx="13" fill="url(#f2met)" stroke="#1F2937" stroke-width="2"/><rect x="20" y="99" width="80" height="8" rx="4" fill="#fff" opacity=".5"/><rect x="24" y="106" width="34" height="26" rx="6" fill="#0B1220"/><circle cx="35" cy="117" r="4" fill="#A3E635"/><circle cx="49" cy="117" r="4" fill="#A3E635"/><rect x="64" y="110" width="34" height="14" rx="4" fill="#EA580C"/></g>'
++'<g filter="url(#f2bl)"><rect x="14" y="94" width="92" height="44" rx="13" fill="url(#f2met)" stroke="#1F2937" stroke-width="2"/><rect x="20" y="99" width="80" height="8" rx="4" fill="#fff" opacity=".5"/><rect x="24" y="106" width="34" height="26" rx="6" fill="#0B1220"/><circle cx="35" cy="117" r="4" fill="#A3E635"/><circle cx="49" cy="117" r="4" fill="#A3E635"/><rect x="64" y="110" width="34" height="14" rx="4" fill="#EA580C"/></g>'
 +'<rect x="106" y="108" width="44" height="14" rx="7" fill="url(#f2met)" stroke="#1F2937" stroke-width="1.5"/><polygon points="150,106 166,110 166,120 150,124" fill="#334155"/><circle cx="168" cy="115" r="5" fill="#EA580C"/>'
 +'<g filter="url(#f2bl)" fill="#E1F5FE"><circle cx="182" cy="112" r="4.2" opacity=".9"/><circle cx="194" cy="104" r="3.4" opacity=".8"/><circle cx="196" cy="120" r="3.8" opacity=".8"/><circle cx="208" cy="110" r="3" opacity=".7"/><circle cx="206" cy="126" r="2.6" opacity=".65"/><circle cx="218" cy="116" r="2.4" opacity=".6"/><circle cx="188" cy="128" r="2.6" opacity=".6"/><circle cx="200" cy="96" r="2.4" opacity=".55"/><circle cx="214" cy="100" r="2.2" opacity=".5"/><circle cx="222" cy="124" r="2" opacity=".5"/></g>'
 +'<text x="58" y="236" font-size="13" font-weight="bold" fill="#15803D" font-family="sans-serif">رش موضعي 💧 نبتة واحدة بس</text>'
@@ -422,7 +423,7 @@ function devCharge(){return '<svg viewBox="0 0 400 260" xmlns="http://www.w3.org
 +'<polygon points="200,132 306,132 292,110 214,110" fill="url(#f3sol)" stroke="#0F172A" stroke-width="2"/>'
 +'<polygon points="216,111 240,111 228,131 206,131" fill="#FDE68A" opacity=".5"/>'
 +'</g>'
-+'<text x="200" y="248" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#FDF6D8" font-family="sans-serif">محطة الشحن الشمسي ☀️🔋</text>'
++'<text x="200" y="248" font-size="12.5" font-weight="bold" text-anchor="middle" fill="#FDF6D8" font-family="sans-serif">محطة الشحن الشمسي ☀️</text>'
 +'</svg>';}
 function devParts(){return '<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">'
 +'<defs>'
@@ -469,19 +470,36 @@ function tag2(x,y,t,lx,ly){return '<line x1="'+x+'" y1="'+(y+9)+'" x2="'+lx+'" y
 +'<text x="'+x+'" y="'+(y+4.5)+'" font-size="9.5" font-weight="bold" text-anchor="middle" fill="#334155" font-family="sans-serif">'+t+'</text>';}
 var BUILTIN=[{svg:devSpray(),t:'🎯 الرش الموضعي'},{svg:devCharge(),t:'☀️ الشحن الشمسي'},{svg:devParts(),t:'🔧 مكونات الجهاز'}];
 var QCOL=['#16A34A','#F97316','#EC4899','#8B5CF6','#0EA5E9','#EAB308','#0D9488','#EF4444'];
+/* ============ الـ20 سؤال الثابتين بتوع المزارع ============ */
+var FARM20=[
+{id:101,type:'radio',text:'ما المحصول الأساسي اللي بتزرعه؟',opts:['فراولة','طماطم','خيار / كوسة','فلفل','محاصيل حقلية (قمح / ذرة / أرز)','أخرى'],req:true},
+{id:102,type:'radio',text:'الزراعة عندك أرض مفتوحة ولا صوب ولا مصاطب؟',opts:['أرض مفتوحة','صوب زراعية','مصاطب','خلط من دول'],req:true},
+{id:103,type:'radio',text:'بتكتشف الآفات إزاي؟',opts:['بنفسي لما أفحص الحقل','عن طريق فني أو مهندس زراعي','لما أشوف الضرر على الثمار','عن طريق جيران أو تجار','ما بكتشفش إلا بعد ما تنتشر'],req:true},
+{id:104,type:'radio',text:'بتاخد بالك من الإصابة بعد كام يوم من ظهورها؟',opts:['1-2 يوم','3-5 أيام','6-10 أيام','أكتر من 10 أيام','ما بعرفش بالظبط'],req:true},
+{id:105,type:'radio',text:'أكثر آفة بتضايقك إيه؟',opts:['العنكبوت الأحمر','التربس','البياض الدقيقي','المنّ','الذبابة البيضاء','حشرات تانية'],req:true},
+{id:106,type:'yesno',text:'بتتابع حرارة ورطوبة الجو قبل قرار الرش؟',opts:['نعم','لا'],req:true},
+{id:107,type:'radio',text:'بتصرف كام جنيه على المبيدات للفدان في الموسم؟',opts:['أقل من 5,000 جنيه','من 5,000 لـ 10,000','من 10,000 لـ 15,000','أكتر من 15,000','ما بعرفش الرقم بالظبط'],req:true},
+{id:108,type:'radio',text:'بتختار المبيد بناءً على إيه؟',opts:['نصيحة المهندس الزراعي','نصيحة تاجر المبيدات','السعر','الخبرة الشخصية','جربت قبل كده وعمل نتيجة'],req:true},
+{id:109,type:'yesno',text:'بتقدر تحدد النبتة المصابة ولا بترش المنطقة كلها؟',opts:['نعم','لا'],req:true},
+{id:110,type:'radio',text:'عندك عمالة تكفي تفحص الحقل يومي؟',opts:['نعم','لا','أحياناً'],req:true},
+{id:111,type:'yesno',text:'جربت الرش الموضعي (نبتة مصابة بس) قبل كده؟',opts:['نعم','لا'],req:true},
+{id:112,type:'text',text:'إيه اللي يمنعك تجرب جهاز آلي يفحص ويرش؟',opts:[],req:false},
+{id:113,type:'rate',text:'لو الجهاز بيرش 6 مل بدل 45 مل، ده مريحك؟',opts:[],req:true},
+{id:114,type:'radio',text:'لو الجهاز يشفط أو ينفخ بدون مبيد، تفضل الطريقة دي؟',opts:['نعم','لا','يعتمد على نوع الآفة'],req:true},
+{id:115,type:'yesno',text:'عندك تصدير أو بتبيع لشركات تهتم بالمتبقيات؟',opts:['نعم','لا'],req:true},
+{id:116,type:'radio',text:'بتخسر كام % من المحصول بسبب الآفات؟',opts:['أقل من 10%','من 10 لـ 25%','من 25 لـ 50%','أكتر من 50%','ما بعرفش'],req:true},
+{id:117,type:'radio',text:'الإنترنت في الحقل كويس ولا الجهاز لازم offline؟',opts:['الإنترنت كويس','ضعيف أو مفيش'],req:true},
+{id:118,type:'radio',text:'بتستخدم تطبيقات زراعية على الموبايل؟',opts:['نعم','لا','مرة واحدة أو اتنين'],req:true},
+{id:119,type:'radio',text:'إيه أكتر معلومة عايزها من جهاز ذكي؟',opts:['مكان الإصابة بالظبط','نوع الآفة','كمية المبيد المطلوبة','امتى أرش','حالة التربة والرطوبة','كل دول'],req:true},
+{id:120,type:'text',text:'لو جهاز يحلك مشكلة واحدة بس، إيه تكون؟',opts:[],req:false}
+];
+function clone20(){return JSON.parse(JSON.stringify(FARM20)).map(function(q,i){q.id=Date.now()+i;return q;});}
 /* ============ default form ============ */
 function defaultForm(){return{code:code6(),images:[],direct:false,
 title:'استبيان المزارعين — روبوت أخضر AKHDAR',
 welcome:'أهلاً بيك يا بطل 🌱 معانا دقايق قليلة هتساعدنا نفهم اللي بيحصل في حقلك بجد، عشان نطورلك روبوت «أخضر» بيحل مشاكلك إنت مش مشاكل حد تاني.',
 about:'«أخضر» روبوت أرضي ذكي بيشتغل في كل المحاصيل: خضروات، فواكه، محاصيل حقلية وصوب زراعية. بيمشي بين الخطوط، بيصور الأوراق بكاميرا ذكاء اصطناعي ويكتشف الآفات والأمراض بدري جداً، وبيرش النبتة المصابة بس بكمية صغيرة جداً بدل ما يغرق الحقل كله مبيدات. بيشتغل بالطاقة الشمسية، وبيشتغل من غير إنترنت، وبيبعتلك تقرير بسيط على موبايلك: فين المشكلة، اتعمل إيه، ووفرت كام فلوس.',
-webhook:'',questions:[
-{id:1,type:'radio',text:'ما نوع محاصيلك الأساسية؟',opts:['خضروات مكشوفة','فواكه','محاصيل حقلية (قمح/ذرة/أرز)','صوب زراعية','أخرى'],req:true},
-{id:2,type:'radio',text:'كم تنفق تقريباً على المبيدات للفدان في الموسم؟',opts:['أقل من 5 آلاف جنيه','من 5 إلى 10 آلاف','من 10 إلى 15 ألف','أكثر من 15 ألف'],req:true},
-{id:3,type:'check',text:'ما أكبر المشاكل اللي بتواجهك في مكافحة الآفات؟',opts:['اكتشاف الإصابة متأخر','غلو المبيدات','نقص عمالة الرش','رفض شحنات تصدير','ضرر الحشرات النافعة','مفيش مشاكل'],req:true},
-{id:4,type:'yesno',text:'هل سمعت قبل كده عن روبوتات الزراعة الذكية؟',opts:['نعم','لا'],req:true},
-{id:5,type:'rate',text:'قد إيه مهتم تجرب روبوت «أخضر» بيرش النبتة المصابة بس؟',opts:[],req:true},
-{id:6,type:'text',text:'إيه أكتر حاجة نفسك تتحل في حقلك السنة دي؟',opts:[],req:false}
-]};}
+webhook:'',questions:clone20()};}
 /* ============ storage ============ */
 var CUR=null,editId=null;
 function saveCur(){try{localStorage.setItem('ssform_'+CUR.code,JSON.stringify(CUR));}catch(e){toast('⚠️ مساحة التخزين مليت — قلل الصور','err');}}
@@ -567,7 +585,7 @@ var tot2=rs.length||1;
 return '<div class="sum"><div class="st">'+(i+1)+'. '+esc(q.text)+'</div>'+opts.map(function(o){return '<div class="sr"><span class="lb">'+esc(o)+'</span><span class="bar"><i style="width:'+Math.round((cnt[o]||0)/tot2*100)+'%;background:'+bc+'"></i></span><span class="ct">'+(cnt[o]||0)+'</span></div>';}).join('')+'</div>';
 }).join('');
 $('respSummary').innerHTML=sum||'<p class="desc">ضيف أسئلة الأول</p>';
-$('respList').innerHTML=rs.map(function(r,i){return '<div class="resp"><div class="rt">🧑‍🌾 رد #'+(i+1)+' · '+new Date(r.t).toLocaleString('ar-EG')+'</div>'+CUR.questions.map(function(q){var v=r.a[q.id];if(v==null||v==='')return '';return '<div><b>'+esc(q.text)+'</b>: '+(Array.isArray(v)?v.map(esc).join('، '):esc(v))+'</div>';}).join('')+'</div>';}).join('')||'<p class="desc">مفيش ردود لسه. شارك اللينك واستنى الردود 👍</p>';}
+$('respList').innerHTML=rs.map(function(r,i){return '<div class="resp"><div class="rt">🧑‍ رد #'+(i+1)+' · '+new Date(r.t).toLocaleString('ar-EG')+'</div>'+CUR.questions.map(function(q){var v=r.a[q.id];if(v==null||v==='')return '';return '<div><b>'+esc(q.text)+'</b>: '+(Array.isArray(v)?v.map(esc).join('، '):esc(v))+'</div>';}).join('')+'</div>';}).join('')||'<p class="desc">مفيش ردود لسه. شارك اللينك واستنى الردود 👍</p>';}
 $$('.tab').forEach(function(t){t.onclick=function(){$$('.tab').forEach(function(x){x.classList.toggle('on',x===t);});['builder','resp','share'].forEach(function(k){$('tab-'+k).classList.toggle('hidden',k!==t.dataset.tab);});if(t.dataset.tab==='resp')renderResp();};});
 ['fTitle','fWelcome','fAbout'].forEach(function(id){$(id).oninput=function(){CUR.title=$('fTitle').value;CUR.welcome=$('fWelcome').value;CUR.about=$('fAbout').value;saveCur();renderShare();};});
 $('qType').onchange=function(){$('optsWrap').style.display=(this.value==='radio'||this.value==='check')?'':'none';};
@@ -587,6 +605,13 @@ if(dn&&i<CUR.questions.length-1){var t2=CUR.questions[i+1];CUR.questions[i+1]=CU
 if(dl){CUR.questions.splice(i,1);toast('تم حذف السؤال 🗑','info');}
 if(ed){var q=CUR.questions[i];editId=q.id;$('qText').value=q.text;$('qType').value=q.type;$('qType').onchange();$('qOpts').value=(q.opts||[]).join('، ');$('qReq').checked=q.req;$('qAdd').innerHTML='💾 حفظ التعديل';$('editBadge').classList.remove('hidden');$('qCancelEdit').classList.remove('hidden');}
 saveCur();renderQList();};
+$('btnLoad20').onclick=function(){
+  if(confirm('هيتم استبدال الأسئلة الحالية بأسئلة المزارعين الـ20 الكاملة بخياراتها. متابعة؟')){
+    CUR.questions=clone20();
+    saveCur();renderQList();renderShare();
+    toast('تم تثبيت الـ20 سؤال ✅','ok');
+  }
+};
 $('btnCopyLink').onclick=function(){var i=$('shareLink');i.select();try{document.execCommand('copy');}catch(e){}if(navigator.clipboard)navigator.clipboard.writeText(i.value);toast('تم نسخ اللينك 📋','ok');};
 $('btnWa').onclick=function(){var link=$('shareLink').value;var msg='🌿 روبوت «أخضر» AKHDAR بيطلب رأيك!\n🤖 روبوت زراعي ذكي بيكتشف الآفات وبيرش النبتة المصابة بس بالطاقة الشمسية.\n📝 شاركنا في الاستبيان (دقايق بس):\n'+link;window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');};
 $('btnPreview').onclick=function(){enterFill(CUR,true);};
@@ -602,7 +627,7 @@ $('btnCloud').onclick=function(){
   }).catch(function(){toast('فشل النشر — اتأكد من FB_BASE والصلاحيات','err');});
 };
 $('btnSaveHook').onclick=function(){CUR.webhook=$('webhook').value.trim();saveCur();toast('تم حفظ رابط الاستقبال 💾','ok');};
-$('btnNewForm').onclick=function(){if(confirm('بدء استبيان جديد فاضي؟ الحالي محفوظ بلينكه.')){CUR=defaultForm();CUR.questions=[];saveCur();try{localStorage.setItem('ss_last',CUR.code);}catch(e){}resetQForm();renderAdmin();toast('استبيان جديد جاهز ➕','ok');}};
+$('btnNewForm').onclick=function(){if(confirm('بدء استبيان جديد؟ هيبدأ تلقائياً بالـ20 سؤال الكاملة. الحالي محفوظ بلينكه.')){CUR=defaultForm();saveCur();try{localStorage.setItem('ss_last',CUR.code);}catch(e){}resetQForm();renderAdmin();toast('استبيان جديد جاهز بالـ20 سؤال ➕','ok');}};
 $('btnCsv').onclick=function(){var rs=resps();if(!rs.length){toast('مفيش ردود للتصدير','err');return;}
 var head=['التوقيت'].concat(CUR.questions.map(function(q){return q.text;}));
 var rows=rs.map(function(r){return [new Date(r.t).toLocaleString('ar-EG')].concat(CUR.questions.map(function(q){var v=r.a[q.id];return Array.isArray(v)?v.join(' | '):(v==null?'':v);}));});
@@ -675,7 +700,7 @@ if(sc&&FB_BASE){
 else if(fq){var cfg3=dec(fq);if(cfg3&&cfg3.questions)startFill(cfg3);else{CUR=loadSaved()||defaultForm();bootAdmin();}}
 else if(h.indexOf('#f=')===0){var cfg2=dec(h.slice(3));if(cfg2&&cfg2.questions)startFill(cfg2);else{CUR=loadSaved()||defaultForm();bootAdmin();}}
 else{CUR=loadSaved()||defaultForm();bootAdmin();}
-function bootAdmin(){try{localStorage.setItem('ss_last',CUR.code);}catch(e){}CUR.images=CUR.images||[];renderAdmin();}
+function bootAdmin(){try{localStorage.setItem('ss_last',CUR.code);}catch(e){}CUR.images=CUR.images||[];CUR.questions=CUR.questions&&CUR.questions.length?CUR.questions:clone20();renderAdmin();}
 })();
 </script>
 </body>
