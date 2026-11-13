@@ -394,7 +394,7 @@ function saveCur(){try{localStorage.setItem('ssform_'+CUR.code,JSON.stringify(CU
 function loadSaved(){try{var k=localStorage.getItem('ss_last');if(k){var v=localStorage.getItem('ssform_'+k);if(v)return JSON.parse(v);}}catch(e){}return null;}
 function resps(){try{return JSON.parse(localStorage.getItem('ssresp_'+CUR.code)||'[]');}catch(e){return[];}}
 function pushResp(r){var a=resps();a.unshift(r);try{localStorage.setItem('ssresp_'+CUR.code,JSON.stringify(a));}catch(e){}}
-function imgs(){return (CUR.images&&CUR.images.length)?CUR.images:null;}
+function imgs(){var o=FC||CUR;return (o&&o.images&&o.images.length)?o.images:null;}
 /* ============ image manager ============ */
 function addImage(src,cap){CUR.images=CUR.images||[];CUR.images.push({src:src,cap:cap||''});saveCur();renderImgs();renderShare();}
 $('imgFile').onchange=function(e){
